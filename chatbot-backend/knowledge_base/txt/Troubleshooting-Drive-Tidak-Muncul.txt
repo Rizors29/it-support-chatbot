@@ -1,0 +1,14 @@
+Troubleshooting Drive Tidak Muncul Saat Install Windows 11
+
+Jika drive penyimpanan tidak muncul saat proses instalasi Windows 11, lakukan langkah berikut:
+
+1. Masuk ke BIOS dengan menekan F12 saat logo Lenovo muncul.
+2. Periksa apakah SSD atau drive terdeteksi di BIOS.
+3. Pastikan drive terpasang dengan benar pada slot M.2 atau SATA.
+4. Jika drive tidak terdeteksi, matikan perangkat dan periksa kembali koneksi fisik drive.
+5. Jika drive terdeteksi di BIOS tetapi tidak muncul di installer Windows, pilih Load Driver pada halaman pemilihan drive.
+6. Siapkan driver storage atau Intel RST sesuai tipe perangkat.
+7. Setelah driver berhasil dimuat, refresh daftar drive.
+8. Jika drive tetap tidak muncul, reset BIOS ke Load Optimal Defaults.
+9. Simpan konfigurasi BIOS, restart perangkat, lalu ulangi proses instalasi Windows 11.
+10. Jika masalah belum selesai, hubungi tim IT Support.

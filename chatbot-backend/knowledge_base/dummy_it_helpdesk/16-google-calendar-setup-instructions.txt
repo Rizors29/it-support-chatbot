@@ -1,0 +1,18 @@
+Judul: Google Calendar Setup Instructions
+
+Kategori: Training
+Prioritas: Low
+
+Deskripsi Masalah:
+Hi team, I'm trying to set up a personal Google Calendar to better manage my individual tasks, but I'm not sure where to start. Could you provide me with some step-by-step instructions or point me to a guide? Thanks a bunch! :)
+
+Panduan/SOP Penyelesaian:
+1. Identifikasi gejala masalah yang dialami pengguna.
+2. Catat pesan error atau kondisi yang muncul.
+3. Restart aplikasi atau perangkat terkait.
+4. Pastikan koneksi jaringan dan akun pengguna berfungsi normal.
+5. Coba ulang proses setelah pengecekan dasar.
+6. Jika masalah belum selesai, eskalasikan ke IT Support dengan detail kendala.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

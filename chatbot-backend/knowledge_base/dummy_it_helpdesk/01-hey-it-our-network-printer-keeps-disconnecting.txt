@@ -1,0 +1,18 @@
+Judul: Hey IT! Our network printer keeps disconnecting.
+
+Kategori: Network
+Prioritas: Medium
+
+Deskripsi Masalah:
+Hey IT! Our network printer keeps disconnecting intermittently and requires manual IP reconfiguration each time. It's becoming quite a hassle, especially during busy hours. A few folks in the office have mentioned they're experiencing the same issue. Could you look into this? Thanks!
+
+Panduan/SOP Penyelesaian:
+1. Pastikan printer dalam keadaan menyala dan terhubung ke jaringan.
+2. Periksa koneksi Wi-Fi atau kabel LAN pada perangkat pengguna.
+3. Pastikan printer yang dipilih sesuai dengan nama printer yang digunakan.
+4. Hapus antrean cetak yang menumpuk pada menu printer queue.
+5. Restart printer dan laptop pengguna.
+6. Jika masih bermasalah, lakukan instalasi ulang driver printer atau hubungi IT Support.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

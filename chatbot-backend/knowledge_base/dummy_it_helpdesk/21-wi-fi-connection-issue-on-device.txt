@@ -1,0 +1,18 @@
+Judul: Wi-Fi Connection Issue on Device
+
+Kategori: Network
+Prioritas: Medium
+
+Deskripsi Masalah:
+I'm unable to connect to the corporate Wi-Fi network. It seems to be a device-specific configuration issue. Could you look into this and help adjust the network settings and security protocols?
+
+Panduan/SOP Penyelesaian:
+1. Pastikan perangkat berada dalam jangkauan jaringan.
+2. Matikan dan nyalakan kembali Wi-Fi pada laptop.
+3. Lupakan jaringan lama, lalu sambungkan kembali menggunakan kredensial yang benar.
+4. Restart laptop dan router jika memungkinkan.
+5. Periksa apakah perangkat lain mengalami masalah yang sama.
+6. Jika masih gagal, hubungi IT Support untuk pengecekan konfigurasi jaringan.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

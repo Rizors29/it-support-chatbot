@@ -1,0 +1,18 @@
+Judul: Troubleshooting Slow Internet on Company Laptop
+
+Kategori: Network
+Prioritas: Medium
+
+Deskripsi Masalah:
+Hello, We are reaching out to assist you with the slow internet connection issue on your company-issued laptop. Please follow these troubleshooting steps: 1. Restart your laptop and router. 2. Check for any available updates for your operating system and install them. 3. Ensure no bandwidth-heavy applications are running in the background. 4. Try connecting to a different network to see if the issue persists. If the problem continues, please email user@example.com for further assistance. Thanks! Acme IT -- This email was sent to you because an Acme IT administrator listed you as the recipient. If you believe this was sent in error, please contact your Acme IT administrator. If you are unsure who this is, please contact your Helpdesk or IT Team.
+
+Panduan/SOP Penyelesaian:
+1. Pastikan perangkat berada dalam jangkauan jaringan.
+2. Matikan dan nyalakan kembali Wi-Fi pada laptop.
+3. Lupakan jaringan lama, lalu sambungkan kembali menggunakan kredensial yang benar.
+4. Restart laptop dan router jika memungkinkan.
+5. Periksa apakah perangkat lain mengalami masalah yang sama.
+6. Jika masih gagal, hubungi IT Support untuk pengecekan konfigurasi jaringan.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

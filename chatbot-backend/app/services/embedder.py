@@ -1,0 +1,25 @@
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
+from app.config import settings
+
+
+class Embedder:
+    def __init__(self):
+        self.model = SentenceTransformer(settings.EMBEDDING_MODEL)
+
+    def embed_texts(self, texts: list[str]) -> np.ndarray:
+        embeddings = self.model.encode(
+            texts,
+            convert_to_numpy=True,
+            normalize_embeddings=True,
+        )
+        return embeddings.astype("float32")
+
+    def embed_query(self, query: str) -> np.ndarray:
+        embedding = self.model.encode(
+            [query],
+            convert_to_numpy=True,
+            normalize_embeddings=True,
+        )
+        return embedding.astype("float32")

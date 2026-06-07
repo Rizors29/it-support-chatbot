@@ -1,0 +1,21 @@
+# environment
+chatbot-backend/.env
+chatbot-backend/.venv/
+chatbot-backend/node_modules/
+
+# python
+__pycache__/
+*.pyc
+
+# vector database / generated files
+chatbot-backend/vector_store/
+chatbot-backend/logs/
+chatbot-backend/data/
+
+# frontend build
+chatbot-frontend/dist/
+frontend/node_modules/
+
+# OS / editor
+.DS_Store
+.vscode/

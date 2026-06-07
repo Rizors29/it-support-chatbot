@@ -1,0 +1,12 @@
+Tutorial Registrasi Microsoft 365 MFA
+
+1. Buka portal Microsoft 365 atau portal.office.com.
+2. Login menggunakan akun email perusahaan.
+3. Jika muncul permintaan More information required, klik Next.
+4. Pilih metode autentikasi yang tersedia, seperti Microsoft Authenticator atau nomor telepon.
+5. Jika menggunakan Microsoft Authenticator, buka aplikasi Microsoft Authenticator di HP.
+6. Pilih Add account, lalu pilih Work or school account.
+7. Scan QR Code yang muncul di layar komputer.
+8. Setelah akun berhasil ditambahkan, lakukan verifikasi sesuai instruksi.
+9. Jika verifikasi berhasil, proses registrasi MFA selesai.
+10. Apabila tidak dapat menerima kode atau gagal scan QR, hubungi tim IT Support atau administrator Microsoft 365.

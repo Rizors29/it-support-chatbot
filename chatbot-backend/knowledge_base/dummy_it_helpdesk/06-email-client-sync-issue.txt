@@ -1,0 +1,18 @@
+Judul: Email client sync issue
+
+Kategori: Software
+Prioritas: High
+
+Deskripsi Masalah:
+Email client fails to sync with server due to suspected corrupted profile requiring manual profile reconstruction and data recovery
+
+Panduan/SOP Penyelesaian:
+1. Pastikan koneksi internet stabil.
+2. Buka aplikasi email atau Outlook.
+3. Klik Send/Receive atau lakukan sinkronisasi ulang.
+4. Periksa kapasitas mailbox dan hapus email yang tidak diperlukan.
+5. Restart aplikasi Outlook.
+6. Jika masih bermasalah, buat ulang profil Outlook atau hubungi IT Support.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+python-dotenv
+google-generativeai
+sentence-transformers
+faiss-cpu
+pymupdf
+python-docx
+python-multipart
+numpy
+pydantic
+langchain-text-splitters
+groq
+datasets
+pandas

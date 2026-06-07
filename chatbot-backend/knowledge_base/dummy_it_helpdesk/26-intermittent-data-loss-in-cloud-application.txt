@@ -1,0 +1,18 @@
+Judul: Intermittent Data Loss in Cloud Application
+
+Kategori: Software
+Prioritas: High
+
+Deskripsi Masalah:
+I am experiencing intermittent data loss in our cloud-based application, which seems to be due to synchronization issues. This requires a detailed investigation and manual reconciliation of data discrepancies across multiple user accounts and devices.
+
+Panduan/SOP Penyelesaian:
+1. Pastikan koneksi internet stabil.
+2. Buka aplikasi email atau Outlook.
+3. Klik Send/Receive atau lakukan sinkronisasi ulang.
+4. Periksa kapasitas mailbox dan hapus email yang tidak diperlukan.
+5. Restart aplikasi Outlook.
+6. Jika masih bermasalah, buat ulang profil Outlook atau hubungi IT Support.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

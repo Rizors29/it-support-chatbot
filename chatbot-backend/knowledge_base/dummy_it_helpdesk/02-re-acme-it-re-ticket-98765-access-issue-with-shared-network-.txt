@@ -1,0 +1,18 @@
+Judul: Re: [Acme IT] Re: Ticket #98765 - Access Issue with Shared Network Drive
+
+Kategori: Network
+Prioritas: High
+
+Deskripsi Masalah:
+This is a follow-up to your previous request #98765 "Access Issue with Shared Network Drive" Hello! I'm having trouble accessing the shared network drive. It used to work fine, but now I'm getting permission errors that seem quite complex. I believe it might require a detailed audit and manual adjustment to resolve. Here's a screenshot of the error message ( . I've tried basic troubleshooting steps like checking my network connection and restarting my computer. Thanks, and please let me know if there's anything else I should try!
+
+Panduan/SOP Penyelesaian:
+1. Pastikan perangkat berada dalam jangkauan jaringan.
+2. Matikan dan nyalakan kembali Wi-Fi pada laptop.
+3. Lupakan jaringan lama, lalu sambungkan kembali menggunakan kredensial yang benar.
+4. Restart laptop dan router jika memungkinkan.
+5. Periksa apakah perangkat lain mengalami masalah yang sama.
+6. Jika masih gagal, hubungi IT Support untuk pengecekan konfigurasi jaringan.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

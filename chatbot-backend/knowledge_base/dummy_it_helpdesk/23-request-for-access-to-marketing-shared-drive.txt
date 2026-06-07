@@ -1,0 +1,18 @@
+Judul: Request for Access to Marketing Shared Drive
+
+Kategori: Network
+Prioritas: Medium
+
+Deskripsi Masalah:
+Attention Acme IT,The marketing team requires access to a shared network drive to enhance collaboration and streamline our workflow. Please review the request details below and grant the necessary permissions to ensure seamless access for all team members.Request: "Access to Marketing Shared Drive"Requested By: Marketing TeamEffective Date: 2024-10-01Date and Time Submitted: 2024-09-25T11:30:00.000-07:00 PST (Acme Server Time Zone)Team: MarketingEmail: user@example.com email was generated from Acme's internal request system on behalf of the Marketing Department. Please DO NOT REPLY to this email.
+
+Panduan/SOP Penyelesaian:
+1. Pastikan perangkat berada dalam jangkauan jaringan.
+2. Matikan dan nyalakan kembali Wi-Fi pada laptop.
+3. Lupakan jaringan lama, lalu sambungkan kembali menggunakan kredensial yang benar.
+4. Restart laptop dan router jika memungkinkan.
+5. Periksa apakah perangkat lain mengalami masalah yang sama.
+6. Jika masih gagal, hubungi IT Support untuk pengecekan konfigurasi jaringan.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

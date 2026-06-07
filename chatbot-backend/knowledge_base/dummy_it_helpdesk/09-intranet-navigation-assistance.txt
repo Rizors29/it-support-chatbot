@@ -1,0 +1,18 @@
+Judul: Intranet Navigation Assistance
+
+Kategori: Training
+Prioritas: Medium
+
+Deskripsi Masalah:
+Hello IT Team, I've been trying to access and navigate the company intranet but I'm having some trouble finding my way around. Could you provide some guidance or resources that might help? I'm hoping to get familiar with it soon as I have some tasks that require its use. Appreciate your help! -- Alex Jordan | Marketing Specialist
+
+Panduan/SOP Penyelesaian:
+1. Pastikan nama aplikasi atau folder yang diminta sudah benar.
+2. Pastikan pengguna memiliki persetujuan dari atasan atau pemilik data.
+3. Ajukan request akses melalui kanal resmi perusahaan.
+4. Tim IT akan memverifikasi hak akses pengguna.
+5. Setelah disetujui, akses akan diberikan sesuai kebutuhan.
+6. Jika akses masih gagal, kirimkan screenshot error ke IT Support.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

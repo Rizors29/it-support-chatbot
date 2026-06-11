@@ -25,6 +25,9 @@ class Settings:
     GROQ_API_KEY = os.getenv("GROQ_API_KEY")
     GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "supersecretkey123")
+    JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
+
 settings = Settings()
 
 def validate_settings():

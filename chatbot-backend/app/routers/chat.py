@@ -1,4 +1,8 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+from app.database import get_db
+from app.utils.auth import get_current_user
+from app.services.chat_log_service import save_chat_log
 
 from app.config import settings
 from app.models.request_models import ChatRequest
@@ -11,7 +15,6 @@ from app.services.vector_store import VectorStore
 
 router = APIRouter(prefix="", tags=["Chatbot"])
 
-rag_service = RAGService()
 vector_store = VectorStore()
 
 
@@ -19,8 +22,11 @@ vector_store = VectorStore()
     "/chat",
     response_model=ChatResponse,
 )
-async def chat(request: ChatRequest):
-
+async def chat(
+    request: ChatRequest,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user),
+):
     query = request.query.strip()
 
     if not query:
@@ -29,7 +35,10 @@ async def chat(request: ChatRequest):
             detail="Query tidak boleh kosong.",
         )
 
+    rag_service = RAGService()
     result = await rag_service.process_query(query)
+    
+    save_chat_log(db, current_user, query, result)
 
     return ChatResponse(**result)
 

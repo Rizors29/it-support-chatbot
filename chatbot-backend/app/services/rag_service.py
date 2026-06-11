@@ -4,6 +4,23 @@ from app.services.vector_store import VectorStore
 from app.utils.category_detector import detect_category
 
 
+def is_it_support_query(query: str) -> bool:
+    query = query.lower()
+
+    allowed_keywords = [
+        "microsoft", "office", "365", "mfa", "authenticator",
+        "printer", "print", "driver", "c3371",
+        "windows", "install windows", "bios",
+        "drive", "ssd", "hard disk", "laptop",
+        "email", "outlook", "akun", "password", "reset password",
+        "login", "teams", "onedrive", "sharepoint",
+        "wifi", "jaringan", "vpn", "internet",
+        "jira", "akses", "aplikasi", "troubleshooting",
+    ]
+
+    return any(keyword in query for keyword in allowed_keywords)
+
+
 class RAGService:
     def __init__(self):
         self.vector_store = VectorStore()
@@ -49,6 +66,19 @@ class RAGService:
             """.strip()
 
     async def process_query(self, query: str) -> dict:
+        if not is_it_support_query(query):
+            return {
+                "answer": (
+                    "Maaf, pertanyaan tersebut berada di luar ruang lingkup IT Support. "
+                    "Silakan tanyakan kendala terkait Microsoft 365, printer, Windows, laptop, "
+                    "email, jaringan, akses aplikasi kerja, atau troubleshooting IT dasar."
+                ),
+                "sources": [],
+                "category": "Out of Scope",
+                "similarity_score": 0.0,
+                "is_fallback": True,
+            }
+
         results = self.vector_store.search(query, settings.TOP_K)
 
         if not results:
@@ -70,8 +100,6 @@ class RAGService:
                 "similarity_score": top_score,
                 "is_fallback": True,
             }
-
-        top_score = results[0]["similarity_score"]
 
         filtered_results = [
             item for item in results

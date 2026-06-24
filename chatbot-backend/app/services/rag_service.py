@@ -24,7 +24,6 @@ def is_it_support_query(query: str) -> bool:
 class RAGService:
     def __init__(self):
         self.vector_store = VectorStore()
-        self.llm_service = LLMService()
 
     def build_context(self, results: list[dict]) -> str:
         context_parts = []
@@ -65,7 +64,7 @@ class RAGService:
             === JAWABAN ===
             """.strip()
 
-    async def process_query(self, query: str) -> dict:
+    async def process_query(self, query: str, model: str = "llama") -> dict:
         if not is_it_support_query(query):
             return {
                 "answer": (
@@ -111,7 +110,8 @@ class RAGService:
         context = self.build_context(results)
         prompt = self.build_prompt(query, context)
 
-        answer = await self.llm_service.generate_answer(prompt)
+        llm_service = LLMService(model)
+        answer = await llm_service.generate_answer(prompt)
 
         sources = list({item["source_file"] for item in results})
         category = detect_category(query, sources)

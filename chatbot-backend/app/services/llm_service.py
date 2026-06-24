@@ -1,18 +1,25 @@
 from app.config import settings
 from app.services.groq_service import GroqService
+from app.services.gemini_service import GeminiService
+from app.services.qwen_service import QwenService
 
 
 class LLMService:
-    def __init__(self):
-        self.provider = settings.LLM_PROVIDER
+    def __init__(self, provider: str):
+        self.provider = provider.lower()
 
-        if self.provider == "groq":
+        if self.provider == "llama":
             self.service = GroqService()
-        elif self.provider == "mock":
-            self.service = None
-        else:
-            from app.services.gemini_service import GeminiService
+        elif self.provider == "gemini":
             self.service = GeminiService()
+        elif self.provider == "qwen":
+            self.service = QwenService()
+        elif self.provider == "mock":
+            self.service = None  # Mock service will be handled separately
+        else:
+            raise ValueError(
+                f"Provider LLM tidak valid: {self.provider}. Pilihan yang valid adalah: llama, gemini, qwen, mock."
+            )
 
     async def generate_answer(self, prompt: str) -> str:
         if self.provider == "mock":

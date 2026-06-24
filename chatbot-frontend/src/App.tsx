@@ -1,23 +1,29 @@
 import { useEffect, useState } from "react";
-import { askQuestion, rebuildIndex, uploadKnowledgeBase } from "./services/api";
-import type { ChatMessage } from "./types/chat";
-import Login from "./pages/Login";
+import { askQuestion, uploadKnowledgeBase } from "./services/api";
+import ModelDropdown from "./components/chat/ModelDropdown";
+
+import type { ChatMessage, ModelType } from "./types/chat";
+import type { AuthUser } from "./types/chat";
+
+import LoginModal from "./components/auth/LoginModal";
+import KnowledgeBaseModal from "./components/auth/KnowledgeBaseModal";
+
 import Header from "./components/layout/Header";
 import Sidebar from "./components/layout/Sidebar";
 import ChatWindow from "./components/chat/ChatWindow";
 import QuickSuggestions from "./components/chat/QuickSuggestions";
 import ChatInput from "./components/chat/ChatInput";
+
 import { CgMicrosoft } from "react-icons/cg";
 import { FiPrinter } from "react-icons/fi";
 import { MdLaptopWindows } from "react-icons/md";
-import { ImOnedrive } from "react-icons/im";
-import type { AuthUser } from "./types/chat";
+import { FaWifi } from "react-icons/fa";
 
 const quickSuggestions = [
   { text: "Registrasi Microsoft 365", icon: CgMicrosoft },
-  { text: "Install printer C3371", icon: FiPrinter },
+  { text: "Install Printer C3371", icon: FiPrinter },
   { text: "Install Windows 11", icon: MdLaptopWindows },
-  { text: "Drive tidak muncul saat install Windows", icon: ImOnedrive },
+  { text: "Wifi Bermasalah", icon: FaWifi },
 ];
 
 function App() {
@@ -25,10 +31,18 @@ function App() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [isRebuilding, setIsRebuilding] = useState(false);
   const [adminMessage, setAdminMessage] = useState("");
+  const [selectedModel, setSelectedModel] = useState<ModelType>("llama");
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFolder, setSelectedFolder] = useState("");
+
   const [isUploading, setIsUploading] = useState(false);
+  const [refreshKb, setRefreshKb] = useState(0);
+  const token = localStorage.getItem("token") || "";
+
+  const [showLogin, setShowLogin] = useState(false);
+  const [showKnowledgeBase, setShowKnowledgeBase] = useState(false);
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
@@ -49,22 +63,6 @@ function App() {
     setMessages([]);
   };
 
-  const handleRebuildIndex = async () => {
-    setIsRebuilding(true);
-    setAdminMessage("");
-
-    try {
-      const response = await rebuildIndex();
-      setAdminMessage(
-        `${response.message} Total chunk: ${response.indexed_chunks}`
-      );
-    } catch {
-      setAdminMessage("Gagal rebuild index. Pastikan akun memiliki role admin.");
-    } finally {
-      setIsRebuilding(false);
-    }
-  };
-
   const handleUploadKnowledgeBase = async () => {
     if (!selectedFile) {
       setAdminMessage("Pilih file terlebih dahulu.");
@@ -75,21 +73,18 @@ function App() {
     setAdminMessage("");
 
     try {
-      const response = await uploadKnowledgeBase(selectedFile);
+      const response = await uploadKnowledgeBase(selectedFile, selectedFolder);
       setAdminMessage(
         `${response.message} File: ${response.filename}. Total chunk: ${response.indexed_chunks}`
       );
       setSelectedFile(null);
+      setRefreshKb((prev) => prev + 1);
     } catch {
       setAdminMessage("Gagal upload dokumen. Gunakan file PDF, TXT, atau DOCX.");
     } finally {
       setIsUploading(false);
     }
   };
-
-  if (!user) {
-    return <Login onLogin={handleLogin} />;
-  }
 
   const sendMessage = async (queryText?: string) => {
     const query = (queryText ?? input).trim();
@@ -100,7 +95,7 @@ function App() {
     setIsLoading(true);
 
     try {
-      const response = await askQuestion(query);
+      const response = await askQuestion(query, selectedModel);
 
       setMessages((prev) => [
         ...prev,
@@ -132,23 +127,37 @@ function App() {
     <div className="flex min-h-screen bg-slate-100 text-slate-800">
       <Sidebar
         user={user}
-        adminMessage={adminMessage}
         isUploading={isUploading}
-        isRebuilding={isRebuilding}
         setSelectedFile={setSelectedFile}
         onUpload={handleUploadKnowledgeBase}
-        onRebuild={handleRebuildIndex}
+        onOpenKnowledgeBase={() => setShowKnowledgeBase(true)}
+        selectedFolder={selectedFolder}
+        setSelectedFolder={setSelectedFolder}
       />
 
-      <main className="flex flex-1 flex-col">
-        <Header user={user} onLogout={handleLogout} />
+      <main className="flex flex-1 flex-col min-w-0">
+        <Header
+          user={user}
+          onLogout={handleLogout}
+          onLogin={() => setShowLogin(true)}
+        />
 
         <section className="flex-1 overflow-y-auto px-6 py-6">
           <ChatWindow messages={messages} isLoading={isLoading} />
         </section>
 
+
         <div className="sticky bottom-0 z-10 border-t border-slate-200 bg-white px-6 py-4">
-          <QuickSuggestions suggestions={quickSuggestions} onSelect={sendMessage} />
+          <div className="mb-4 flex items-center gap-3">
+            <ModelDropdown />
+
+            <div className="hidden flex-1 justify-center lg:flex">
+              <QuickSuggestions
+                suggestions={quickSuggestions}
+                onSelect={sendMessage}
+              />
+            </div>
+          </div>
 
           <ChatInput
             input={input}
@@ -157,6 +166,26 @@ function App() {
             isLoading={isLoading}
           />
         </div>
+        {showLogin && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+            <div className="w-full max-w-md px-4">
+              <LoginModal
+                onLogin={(loggedInUser) => {
+                  handleLogin(loggedInUser);
+                  setShowLogin(false);
+                }}
+                onClose={() => setShowLogin(false)}
+              />
+            </div>
+          </div>
+        )}
+        {showKnowledgeBase && user?.role === "admin" && (
+          <KnowledgeBaseModal
+            token={token}
+            refreshTrigger={refreshKb}
+            onClose={() => setShowKnowledgeBase(false)}
+          />
+        )}
       </main>
     </div>
   );

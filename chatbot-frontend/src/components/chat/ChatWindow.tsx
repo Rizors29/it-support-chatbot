@@ -17,7 +17,7 @@ function ChatWindow({ messages, isLoading }: ChatWindowProps) {
 				</div>
 			)}
 
-			<div className="space-y-4">
+			<div className="space-y-1">
 				{messages.map((m, i) => (
 					<MessageBubble key={i} message={m} />
 				))}

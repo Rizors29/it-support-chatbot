@@ -2,7 +2,14 @@ import os
 import shutil
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from fastapi import (
+    APIRouter,
+    Depends,
+    File,
+    Form,
+    HTTPException,
+    UploadFile,
+)
 
 from app.config import settings
 from app.models.response_models import RebuildIndexResponse
@@ -46,10 +53,12 @@ async def rebuild_index(
 
 @router.post("/upload-document")
 async def upload_document(
+    folder_name: str = Form(...),
     file: UploadFile = File(...),
     current_user=Depends(require_admin),
 ):
     allowed_extensions = [".pdf", ".txt", ".docx"]
+
     file_extension = Path(file.filename).suffix.lower()
 
     if file_extension not in allowed_extensions:
@@ -59,17 +68,110 @@ async def upload_document(
         )
 
     knowledge_base_path = Path(settings.KNOWLEDGE_BASE_PATH)
-    knowledge_base_path.mkdir(parents=True, exist_ok=True)
 
-    save_path = knowledge_base_path / file.filename
+    target_folder = knowledge_base_path / folder_name
+
+    target_folder.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    save_path = target_folder / file.filename
 
     with open(save_path, "wb") as buffer:
-      shutil.copyfileobj(file.file, buffer)
+        shutil.copyfileobj(file.file, buffer)
 
     indexed_chunks = rebuild_vector_index()
 
     return {
         "message": "Dokumen berhasil diupload dan index berhasil diperbarui.",
+        "folder": folder_name,
         "filename": file.filename,
+        "indexed_chunks": indexed_chunks,
+    }
+
+
+@router.get("/folders")
+async def get_folders(
+    current_user=Depends(require_admin),
+):
+    knowledge_base_path = Path(
+        settings.KNOWLEDGE_BASE_PATH
+    )
+
+    folders = [
+        folder.name
+        for folder in knowledge_base_path.iterdir()
+        if folder.is_dir()
+    ]
+
+    folders.sort()
+
+    return {
+        "folders": folders
+    }
+
+
+@router.get("/documents")
+async def get_documents(
+    current_user=Depends(require_admin),
+):
+    knowledge_base_path = Path(
+        settings.KNOWLEDGE_BASE_PATH
+    )
+
+    folders = []
+
+    for folder in sorted(knowledge_base_path.iterdir()):
+        if folder.is_dir():
+
+            files = []
+
+            for file in sorted(folder.iterdir()):
+                if file.is_file():
+                    files.append({
+                        "filename": file.name,
+                        "size_kb": round(
+                            file.stat().st_size / 1024,
+                            2
+                        )
+                    })
+
+            folders.append({
+                "folder_name": folder.name,
+                "files": files
+            })
+
+    return {
+        "folders": folders
+    }
+
+
+@router.delete(
+    "/documents/{folder_name}/{filename}"
+)
+async def delete_document(
+    folder_name: str,
+    filename: str,
+    current_user=Depends(require_admin),
+):
+    file_path = (
+        Path(settings.KNOWLEDGE_BASE_PATH)
+        / folder_name
+        / filename
+    )
+
+    if not file_path.exists():
+        raise HTTPException(
+            status_code=404,
+            detail="Dokumen tidak ditemukan.",
+        )
+
+    os.remove(file_path)
+
+    indexed_chunks = rebuild_vector_index()
+
+    return {
+        "message": f"{filename} berhasil dihapus.",
         "indexed_chunks": indexed_chunks,
     }

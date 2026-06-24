@@ -14,8 +14,8 @@ def save_chat_log(
 
     log = ChatLog(
         user_id=user.get("id") if user else None,
-        user_name=user.get("name") if user else None,
-        user_role=user.get("role") if user else None,
+        user_name=user.get("name") if user else "Guest",
+        user_role=user.get("role") if user else "guest",
         question=question,
         answer=result.get("answer", ""),
         sources=json.dumps(sources),

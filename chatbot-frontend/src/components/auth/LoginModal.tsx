@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { loginUser } from "../services/api";
-import type { AuthUser } from "../types/chat";
+import { AiOutlineClose } from "react-icons/ai";
+import { loginUser } from "../../services/api";
+import type { AuthUser } from "../../types/chat";
 
-interface LoginPageProps {
+interface LoginModalProps {
   onLogin: (user: AuthUser, token: string) => void;
+  onClose: () => void;
 }
 
-function Login({ onLogin }: LoginPageProps) {
+function LoginModal({ onLogin, onClose }: LoginModalProps) {
   const [email, setEmail] = useState("admin@finnet.co.id");
   const [password, setPassword] = useState("admin123");
   const [isLoading, setIsLoading] = useState(false);
@@ -36,8 +38,17 @@ function Login({ onLogin }: LoginPageProps) {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
-      <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-lg">
+    <div className="flex items-center justify-center">
+      <div className="relative w-full max-w-md rounded-3xl bg-white p-8 shadow-lg">
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Tutup login"
+          className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
+        >
+          <AiOutlineClose className="h-5 w-5" />
+        </button>
+
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-100">
             <img src="/chatbot-icon.svg" alt="Chatbot Icon" className="h-10 w-10" />
@@ -64,7 +75,7 @@ function Login({ onLogin }: LoginPageProps) {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
-              placeholder="admin@finnet.co.id"
+              placeholder="Masukkan email"
             />
           </div>
 
@@ -92,18 +103,9 @@ function Login({ onLogin }: LoginPageProps) {
             {isLoading ? "Memproses..." : "Login"}
           </button>
         </div>
-
-        <div className="mt-6 rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
-          <p>
-            <b>Admin:</b> admin@finnet.co.id / admin123
-          </p>
-          <p>
-            <b>User:</b> user@finnet.co.id / user123
-          </p>
-        </div>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default LoginModal;

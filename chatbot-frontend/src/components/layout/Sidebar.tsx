@@ -3,28 +3,31 @@ import AdminPanel from "../admin/AdminPanel";
 import type { AuthUser } from "../../types/chat";
 
 interface SidebarProps {
-	user: AuthUser;
-	adminMessage: string;
+	user: AuthUser | null;
+
 	isUploading: boolean;
-	isRebuilding: boolean;
+
 	setSelectedFile: (f: File | null) => void;
 	onUpload: () => Promise<void>;
-	onRebuild: () => Promise<void>;
+	onOpenKnowledgeBase: () => void;
+  selectedFolder: string;
+  setSelectedFolder: (folder: string) => void;
 }
 
 function Sidebar({
 	user,
-	adminMessage,
 	isUploading,
-	isRebuilding,
 	setSelectedFile,
 	onUpload,
-	onRebuild,
+	onOpenKnowledgeBase,
+	selectedFolder,
+	setSelectedFolder
 }: SidebarProps) {
 	const cards = [
-		{ title: "Microsoft 365", description: "Registrasi MFA, portal Office, Authenticator" },
-		{ title: "Printer", description: "Install driver C3371 dan pengaturan printer" },
-		{ title: "Windows 11", description: "Instalasi Windows, BIOS, drive tidak muncul" },
+		{ title: "Microsoft 365", description: "Registrasi dan Login Microsoft 365, Scan QR Authenticator" },
+		{ title: "Printer", description: "Instalasi printer driver Fuji C3371 dan pengaturan printer" },
+		{ title: "Windows 11", description: "Instalasi Windows, BIOS setup, Instalasi device drivers" },
+		{ title: "Network", description: "Pengaturan jaringan dan koneksi, wifi bermasalah" },
 	];
 
 	return (
@@ -57,15 +60,10 @@ function Sidebar({
 					))}
 				</div>
 
-				{user.role === "admin" && (
+				{user?.role === "admin" && (
 					<div className="shrink-0 border-t border-slate-200 bg-white p-6">
 						<AdminPanel
-							isUploading={isUploading}
-							isRebuilding={isRebuilding}
-							adminMessage={adminMessage}
-							setSelectedFile={setSelectedFile}
-							onUpload={onUpload}
-							onRebuild={onRebuild}
+							onOpenKnowledgeBase={onOpenKnowledgeBase}
 						/>
 					</div>
 				)}

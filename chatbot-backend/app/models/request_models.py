@@ -7,3 +7,8 @@ class ChatRequest(BaseModel):
         max_length=1000,
         description="Pertanyaan pengguna",
     )
+
+    model: str = Field(
+        default="llama",
+        description="Model yang digunakan: llama, gemini, qwen",
+    )

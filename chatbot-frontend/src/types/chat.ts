@@ -1,6 +1,9 @@
+export type ModelType = "llama" | "gemini" | "gwen";
+
 export interface ChatMessage {
   role: "user" | "bot";
   content: string;
+  model?: string;
   sources?: string[];
   category?: string;
   similarity_score?: number;
@@ -32,4 +35,14 @@ export interface LoginResponse {
   access_token: string;
   token_type: string;
   user: AuthUser;
+}
+
+export interface KnowledgeDocument {
+  filename: string;
+  size_kb: number;
+}
+
+export interface KnowledgeFolder {
+  folder_name: string;
+  files: KnowledgeDocument[];
 }

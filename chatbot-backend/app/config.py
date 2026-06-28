@@ -30,17 +30,32 @@ class Settings:
     USE_MOCK_LLM = os.getenv("USE_MOCK_LLM", "false").lower() == "true"
 
     # Database configuration
-    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "supersecretkey123")
+    DATABASE_URL = os.getenv("DATABASE_URL")
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
     JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 
 settings = Settings()
 
 def validate_settings():
-    if not settings.GEMINI_API_KEY or settings.GEMINI_API_KEY == "your_gemini_api_key_here":
-        raise RuntimeError("GEMINI_API_KEY belum diisi di file .env")
-    if not settings.GROQ_API_KEY or settings.GROQ_API_KEY == "your_groq_api_key_here":
-        raise RuntimeError("GROQ_API_KEY belum diisi di file .env")
-    if not settings.HF_API_KEY or settings.HF_API_KEY == "your_huggingface_api_key_here":
-        raise RuntimeError("HF_API_KEY belum diisi di file .env")
-    if not settings.JWT_SECRET_KEY or settings.JWT_SECRET_KEY == "your_jwt_secret_key_here":
-        raise RuntimeError("JWT_SECRET_KEY belum diisi di file .env")
+    placeholders = [
+        "your_gemini_api_key",
+        "your_gemini_api_key_here",
+        "your_groq_api_key",
+        "your_groq_api_key_here",
+        "your_huggingface_api_key",
+        "your_huggingface_api_key_here",
+        "your_database_url",
+        "your_database_url_here",
+        "your_jwt_secret_key",
+        "your_jwt_secret_key_here",
+        "supersecretkey123"
+    ]
+
+    if not settings.GEMINI_API_KEY or settings.GEMINI_API_KEY in placeholders:
+        raise RuntimeError("GEMINI_API_KEY belum diisi dengan benar di file .env")
+    if not settings.GROQ_API_KEY or settings.GROQ_API_KEY in placeholders:
+        raise RuntimeError("GROQ_API_KEY belum diisi dengan benar di file .env")
+    if not settings.HF_API_KEY or settings.HF_API_KEY in placeholders:
+        raise RuntimeError("HF_API_KEY belum diisi dengan benar di file .env")
+    if not settings.JWT_SECRET_KEY or settings.JWT_SECRET_KEY in placeholders:
+        raise RuntimeError("JWT_SECRET_KEY belum diisi dengan benar dan aman di file .env")

@@ -10,7 +10,7 @@ Chatbot ini berbasis Retrieval Augmented Generation (RAG). Chatbot ini dirancang
 ### Tech Stack
 - **Frontend:** React, Tailwind CSS
 - **Backend:** Python, Typescript, FastAPI
-- **Model:** Gemini, Groq
+- **Model:** Gemini, Llama, Qwen
 
 ### Dataset
 Untuk dataset yang diambil, berupa dataset primer yang didapat dari internal perusahaan dan dataset sekunder yang diambil dari web hugging face

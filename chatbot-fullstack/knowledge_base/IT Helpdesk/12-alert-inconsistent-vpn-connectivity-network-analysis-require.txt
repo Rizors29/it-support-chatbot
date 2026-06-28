@@ -1,0 +1,18 @@
+Judul: Alert: Inconsistent VPN Connectivity - Network Analysis Required
+
+Kategori: Network
+Prioritas: High
+
+Deskripsi Masalah:
+Notification from Acme Network Services Acme Network Image This Inconsistent VPN Connectivity alert is to inform you that a user is experiencing irregular VPN connections that require detailed network analysis and manual configuration adjustments on both client and server sides. The alert details include: User: John Doe user@example.com By: Network Monitoring System user@example.com Date: Wed, Oct 25 2023 14:22 UTC Network Analysis is not enabled for this rule. Network Analysis can provide additional details, investigation options, and remediation recommendations. To enable, turn on network analysis in the rule detail page. Go to Rule Details You have received this important update about your Acme Network account because you are the designated admin recipient for this alert type. You can turn off these alerts or change the email recipients in the Rules section of the Admin Console. Acme Corp 1234 Elm Street Springfield, USA -- You received this message because you are subscribed to the Acme Groups "Network Support" group. To unsubscribe from this group and stop receiving emails from it, send an email to user@example.com
+
+Panduan/SOP Penyelesaian:
+1. Pastikan koneksi internet pengguna stabil.
+2. Buka aplikasi VPN yang digunakan perusahaan.
+3. Pastikan username, password, dan MFA sudah benar.
+4. Restart aplikasi VPN dan coba login kembali.
+5. Jika gagal, restart laptop dan jaringan internet.
+6. Jika masalah berlanjut, kirimkan screenshot error ke IT Support.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

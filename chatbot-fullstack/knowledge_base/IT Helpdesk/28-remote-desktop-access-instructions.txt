@@ -1,0 +1,18 @@
+Judul: Remote Desktop Access Instructions
+
+Kategori: RemoteWork
+Prioritas: Medium
+
+Deskripsi Masalah:
+Hello, I hope this message finds you well! Could I please get instructions on how to access the remote desktop for the first time? Thank you! Jordan -- Jordan Smith | IT Support Specialist Acme Co ( ● New York, NY
+
+Panduan/SOP Penyelesaian:
+1. Pastikan nama aplikasi atau folder yang diminta sudah benar.
+2. Pastikan pengguna memiliki persetujuan dari atasan atau pemilik data.
+3. Ajukan request akses melalui kanal resmi perusahaan.
+4. Tim IT akan memverifikasi hak akses pengguna.
+5. Setelah disetujui, akses akan diberikan sesuai kebutuhan.
+6. Jika akses masih gagal, kirimkan screenshot error ke IT Support.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

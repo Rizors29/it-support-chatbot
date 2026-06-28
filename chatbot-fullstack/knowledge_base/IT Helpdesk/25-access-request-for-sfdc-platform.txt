@@ -1,0 +1,18 @@
+Judul: Access Request for SFDC Platform
+
+Kategori: Account
+Prioritas: Medium
+
+Deskripsi Masalah:
+Hi IT Team, Hope you're all doing well. I've been informed that I should have access to the SFDC Platform for our upcoming sales initiatives, but it seems I don't have the necessary permissions. I've attached a screenshot of the error message I receive when trying to log in. Please advise on how to proceed. Many thanks, Alex
+
+Panduan/SOP Penyelesaian:
+1. Pastikan nama aplikasi atau folder yang diminta sudah benar.
+2. Pastikan pengguna memiliki persetujuan dari atasan atau pemilik data.
+3. Ajukan request akses melalui kanal resmi perusahaan.
+4. Tim IT akan memverifikasi hak akses pengguna.
+5. Setelah disetujui, akses akan diberikan sesuai kebutuhan.
+6. Jika akses masih gagal, kirimkan screenshot error ke IT Support.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

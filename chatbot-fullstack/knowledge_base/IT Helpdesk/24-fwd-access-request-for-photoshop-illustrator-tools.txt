@@ -1,0 +1,18 @@
+Judul: Fwd: Access Request for Photoshop & Illustrator Tools
+
+Kategori: Software
+Prioritas: Medium
+
+Deskripsi Masalah:
+Hi IT - Wanted to make sure you were aware of this notice: ---------- Forwarded message --------- From: Adobe user@example.com Date: Tue, Oct 10, 2023 at 10:15 AM Subject: Access Request for Photoshop & Illustrator Tools To: user@example.com Get more details inside. Please forward this email to your IT department. This is a reminder that we’ll be granting access to Adobe Photoshop and Illustrator tools on October 12, 2023, at 9:00 a.m. (PT). Failure to take the necessary steps below may result in delays in accessing these tools: * This update only applies to users with active Adobe Creative Cloud subscriptions. * Users may encounter the message “Access Denied” when trying to open Photoshop or Illustrator after the access update. If this occurs, ensure your subscription is active and try logging out and back into your Adobe account. * If your Adobe account is managed by your organization, there is no action required on your part in updating access permissions. * If you’re leveraging Adobe Enterprise ID, you’ll need to verify your account details. * If your Adobe account is linked to a personal email, you may need to initiate a manual update from your account settings on October 12, 2023, after 9:00 a.m. (PT). Access it and a copy of our new access policy here ( . If your IT department does not have access to the Adobe Admin Console, please forward them the instructions. * If your Adobe account is not linked to an organization or if you need further assistance to complete this change, contact Adobe Support directly to manually update your access by October 12, to ensure you’re able to continue using Photoshop and Illustrator. *If you're not logged into the Adobe Admin Console, you'll be asked to enter your credentials when accessing the link(s). Adobe 345 Park Avenue San Jose, CA 95110 (800) 833-6687 Want to change how you receive these emails? You can update your preferences ( or unsubscribe from this list ( . -- Jane Doe | Creative Team Lead Acme Co ( • New York, NY • she/her
+
+Panduan/SOP Penyelesaian:
+1. Pastikan koneksi internet stabil.
+2. Buka aplikasi email atau Outlook.
+3. Klik Send/Receive atau lakukan sinkronisasi ulang.
+4. Periksa kapasitas mailbox dan hapus email yang tidak diperlukan.
+5. Restart aplikasi Outlook.
+6. Jika masih bermasalah, buat ulang profil Outlook atau hubungi IT Support.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

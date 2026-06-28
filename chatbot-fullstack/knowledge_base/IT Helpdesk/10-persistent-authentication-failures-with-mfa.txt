@@ -1,0 +1,18 @@
+Judul: Persistent Authentication Failures with MFA
+
+Kategori: Security
+Prioritas: High
+
+Deskripsi Masalah:
+I'm experiencing persistent authentication failures with our multi-factor authentication system. This issue requires a detailed investigation and manual synchronization of my user credentials across multiple platforms. Please assist at your earliest convenience.
+
+Panduan/SOP Penyelesaian:
+1. Buka portal Microsoft 365 atau halaman login aplikasi terkait.
+2. Login menggunakan akun perusahaan.
+3. Ikuti instruksi pendaftaran MFA yang muncul di layar.
+4. Gunakan aplikasi Microsoft Authenticator atau metode OTP yang tersedia.
+5. Jika mengganti perangkat, lakukan reset MFA melalui administrator IT.
+6. Jika kode tidak diterima atau autentikasi gagal, hubungi IT Support.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

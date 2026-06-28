@@ -1,0 +1,18 @@
+Judul: user@example.com Google Calendar Setup Assistance
+
+Kategori: Software
+Prioritas: Medium
+
+Deskripsi Masalah:
+We need to set up a new Google Calendar for team scheduling. Please assist with the following steps: - Creating the calendar - Sharing with team members - Setting permissions
+
+Panduan/SOP Penyelesaian:
+1. Identifikasi gejala masalah yang dialami pengguna.
+2. Catat pesan error atau kondisi yang muncul.
+3. Restart aplikasi atau perangkat terkait.
+4. Pastikan koneksi jaringan dan akun pengguna berfungsi normal.
+5. Coba ulang proses setelah pengecekan dasar.
+6. Jika masalah belum selesai, eskalasikan ke IT Support dengan detail kendala.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

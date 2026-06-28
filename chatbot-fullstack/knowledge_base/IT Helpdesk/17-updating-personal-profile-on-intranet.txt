@@ -1,0 +1,18 @@
+Judul: Updating Personal Profile on Intranet
+
+Kategori: Software
+Prioritas: Medium
+
+Deskripsi Masalah:
+Hi Team, Can you please provide instructions on how to update my personal profile information on the company intranet? Please let me know if you need any other information. Best, Jamie Lee | HR Coordinator • New York, NY • they/them
+
+Panduan/SOP Penyelesaian:
+1. Identifikasi gejala masalah yang dialami pengguna.
+2. Catat pesan error atau kondisi yang muncul.
+3. Restart aplikasi atau perangkat terkait.
+4. Pastikan koneksi jaringan dan akun pengguna berfungsi normal.
+5. Coba ulang proses setelah pengecekan dasar.
+6. Jika masalah belum selesai, eskalasikan ke IT Support dengan detail kendala.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

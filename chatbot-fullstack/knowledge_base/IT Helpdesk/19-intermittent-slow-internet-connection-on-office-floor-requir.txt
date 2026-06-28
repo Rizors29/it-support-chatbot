@@ -1,0 +1,18 @@
+Judul: Intermittent Slow Internet Connection on Office Floor: Requires On-Site Network Assessment and Configuration Adjustment
+
+Kategori: Network
+Prioritas: High
+
+Deskripsi Masalah:
+We've been experiencing intermittent slow internet connection on the office floor. An on-site network assessment and configuration adjustment is required to resolve this issue. Please coordinate with the network team to schedule a visit and perform the necessary adjustments. Ensure that all network devices are checked and optimized for performance. If additional equipment is needed, please submit a request to [Procurement]( for approval.
+
+Panduan/SOP Penyelesaian:
+1. Pastikan perangkat berada dalam jangkauan jaringan.
+2. Matikan dan nyalakan kembali Wi-Fi pada laptop.
+3. Lupakan jaringan lama, lalu sambungkan kembali menggunakan kredensial yang benar.
+4. Restart laptop dan router jika memungkinkan.
+5. Periksa apakah perangkat lain mengalami masalah yang sama.
+6. Jika masih gagal, hubungi IT Support untuk pengecekan konfigurasi jaringan.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

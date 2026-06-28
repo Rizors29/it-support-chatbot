@@ -1,0 +1,18 @@
+Judul: Cloud Tool Access Issue
+
+Kategori: Account
+Prioritas: High
+
+Deskripsi Masalah:
+Hi, I'm having trouble accessing the cloud-based collaboration tool, __AcmeCollab__. It seems like there might be an issue with my account provisioning. I should have access to the project management features, but they're currently unavailable. Could someone look into my account settings and permissions to resolve this? Thanks.
+
+Panduan/SOP Penyelesaian:
+1. Pastikan nama aplikasi atau folder yang diminta sudah benar.
+2. Pastikan pengguna memiliki persetujuan dari atasan atau pemilik data.
+3. Ajukan request akses melalui kanal resmi perusahaan.
+4. Tim IT akan memverifikasi hak akses pengguna.
+5. Setelah disetujui, akses akan diberikan sesuai kebutuhan.
+6. Jika akses masih gagal, kirimkan screenshot error ke IT Support.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

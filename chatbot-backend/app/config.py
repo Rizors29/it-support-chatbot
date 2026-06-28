@@ -51,11 +51,12 @@ def validate_settings():
         "supersecretkey123"
     ]
 
-    if not settings.GEMINI_API_KEY or settings.GEMINI_API_KEY in placeholders:
-        raise RuntimeError("GEMINI_API_KEY belum diisi dengan benar di file .env")
-    if not settings.GROQ_API_KEY or settings.GROQ_API_KEY in placeholders:
-        raise RuntimeError("GROQ_API_KEY belum diisi dengan benar di file .env")
-    if not settings.HF_API_KEY or settings.HF_API_KEY in placeholders:
-        raise RuntimeError("HF_API_KEY belum diisi dengan benar di file .env")
+    if not settings.USE_MOCK_LLM:
+        if not settings.GEMINI_API_KEY or settings.GEMINI_API_KEY in placeholders:
+            raise RuntimeError("GEMINI_API_KEY belum diisi dengan benar di file .env")
+        if not settings.GROQ_API_KEY or settings.GROQ_API_KEY in placeholders:
+            raise RuntimeError("GROQ_API_KEY belum diisi dengan benar di file .env")
+        if not settings.HF_API_KEY or settings.HF_API_KEY in placeholders:
+            raise RuntimeError("HF_API_KEY belum diisi dengan benar di file .env")
     if not settings.JWT_SECRET_KEY or settings.JWT_SECRET_KEY in placeholders:
         raise RuntimeError("JWT_SECRET_KEY belum diisi dengan benar dan aman di file .env")

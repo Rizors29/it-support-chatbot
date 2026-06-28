@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ app_name }}</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="background">
+    <div class="glow glow-left"></div>
+    <div class="glow glow-right"></div>
+  </div>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">IT Support RAG</p>
+        <h1>{{ app_name }}</h1>
+        <p class="lede">
+          Chatbot internal untuk troubleshooting Microsoft 365, printer, Windows, jaringan, dan akses aplikasi.
+          Semua berjalan di satu aplikasi Python.
+        </p>
+      </div>
+
+      <div class="status-card">
+        <div class="status-row">
+          <span class="status-dot" id="healthDot"></span>
+          <span id="healthText">Memeriksa status indeks...</span>
+        </div>
+        <div class="status-meta">
+          <span>Provider default: <strong>{{ default_provider }}</strong></span>
+          <span>Knowledge base: <strong>lokal</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <aside class="panel intro-panel">
+        <div class="panel-header">
+          <div>
+            <p class="panel-title">Mode kerja</p>
+            <p class="panel-subtitle">Single app Python dengan RAG lokal.</p>
+          </div>
+        </div>
+        <ul class="feature-list">
+          <li>UI dan API ada di server Python yang sama.</li>
+          <li>Credential dibaca dari file `.env`.</li>
+          <li>Index knowledge base dibangun otomatis saat diperlukan.</li>
+        </ul>
+
+        <div class="quick-actions">
+          <button class="chip" data-suggest="Cara reset password email?">Reset password email</button>
+          <button class="chip" data-suggest="Printer tidak terdeteksi di laptop Windows">Printer tidak terdeteksi</button>
+          <button class="chip" data-suggest="VPN sering putus saat bekerja dari rumah">VPN sering putus</button>
+        </div>
+
+        <label class="field-label" for="provider">Model provider</label>
+        <select id="provider" class="select">
+          {% for provider in providers %}
+          <option value="{{ provider }}" {% if provider == default_provider %}selected{% endif %}>{{ provider }}</option>
+          {% endfor %}
+        </select>
+
+        <p class="helper-text">
+          Jika ingin tanpa API key, tetap bisa jalankan dengan provider <code>mock</code>.
+        </p>
+      </aside>
+
+      <section class="panel chat-panel">
+        <div class="chat-header">
+          <div>
+            <p class="panel-title">Chat</p>
+            <p class="panel-subtitle">Ketik masalah IT Anda, lalu kirim.</p>
+          </div>
+          <button id="clearChat" class="ghost-button" type="button">Clear</button>
+        </div>
+
+        <div id="chatWindow" class="chat-window" aria-live="polite"></div>
+
+        <form id="chatForm" class="composer">
+          <textarea
+            id="query"
+            rows="2"
+            placeholder="Contoh: Saya tidak bisa login Microsoft 365 setelah ganti password"
+          ></textarea>
+          <button id="sendButton" type="submit">Kirim</button>
+        </form>
+
+        <p class="footnote">
+          Jawaban diambil dari retrieval knowledge base. Jika data tidak ditemukan, aplikasi akan memberi fallback.
+        </p>
+      </section>
+    </section>
+
+    <section class="panel vault-panel">
+      <div class="vault-header">
+        <div>
+          <p class="panel-title">Knowledge Vault</p>
+          <p class="panel-subtitle">Upload dokumen baru ke knowledge base, lalu index akan dibangun ulang otomatis.</p>
+        </div>
+        <button id="refreshDocs" class="ghost-button" type="button">Refresh</button>
+      </div>
+
+      <form id="uploadForm" class="upload-grid">
+        <div class="field">
+          <label class="field-label" for="folderName">Folder knowledge base</label>
+          <input id="folderName" class="select" type="text" list="folderSuggestions" placeholder="Contoh: IT Helpdesk" />
+          <datalist id="folderSuggestions"></datalist>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="uploadFile">File dokumen</label>
+          <input id="uploadFile" class="file-input" type="file" accept=".pdf,.txt,.docx" />
+        </div>
+
+        <div class="upload-actions">
+          <button id="uploadButton" type="submit">Upload & Rebuild</button>
+          <span id="uploadStatus" class="helper-text">Pilih file PDF, TXT, atau DOCX.</span>
+        </div>
+      </form>
+
+      <div class="docs-grid">
+        <div>
+          <p class="panel-title small">Folder tersedia</p>
+          <div id="folderList" class="pill-list"></div>
+        </div>
+        <div>
+          <p class="panel-title small">Isi knowledge base</p>
+          <div id="docList" class="doc-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

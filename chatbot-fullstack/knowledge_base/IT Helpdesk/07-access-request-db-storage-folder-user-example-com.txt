@@ -1,0 +1,18 @@
+Judul: Access Request: DB Storage Folder - user@example.com
+
+Kategori: Account
+Prioritas: Medium
+
+Deskripsi Masalah:
+Notification from Acme IT Acme IT Image This Access Request alert is to inform you that a request for access to the DB storage folder has been submitted. The request details include: Requester: user@example.com user@example.com By: Service Account user@example.com Date: Mon, Oct 16 2023 14:32 UTC Access Center is not enabled for this request. Access Center can provide additional details, investigation options, and approval recommendations. To enable, turn on access requests in the request detail page. Go to Request Details You have received this important update about your Acme IT account because you are the designated admin recipient for this request type. You can turn off these alerts or change the email recipients in the Requests section of the Admin Console. Acme LLC 123 Innovation Drive Tech City, TX 75001 -- You received this message because you are subscribed to the Acme Groups "IT Support" group. To unsubscribe from this group and stop receiving emails from it, send an email to user@example.com
+
+Panduan/SOP Penyelesaian:
+1. Pastikan koneksi internet stabil.
+2. Buka aplikasi email atau Outlook.
+3. Klik Send/Receive atau lakukan sinkronisasi ulang.
+4. Periksa kapasitas mailbox dan hapus email yang tidak diperlukan.
+5. Restart aplikasi Outlook.
+6. Jika masih bermasalah, buat ulang profil Outlook atau hubungi IT Support.
+
+Catatan:
+Jika panduan ini belum menyelesaikan masalah, pengguna disarankan menghubungi tim IT Support dengan menyertakan screenshot, pesan error, dan kronologi masalah.

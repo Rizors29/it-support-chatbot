@@ -39,11 +39,14 @@ class LLMService:
                 raise RuntimeError("HF_API_KEY belum diisi di file .env")
             self.api_url = "https://router.huggingface.co/v1/chat/completions"
             self.model = settings.HF_MODEL
+        elif self.provider == "ollama":
+            self.api_url = settings.OLLAMA_BASE_URL.rstrip("/") + "/chat"
+            self.model = settings.OLLAMA_MODEL
         elif self.provider == "mock":
             self.model = "mock"
         else:
             raise ValueError(
-                "Provider LLM tidak valid. Pilihan yang valid adalah: mock, gemini, groq, llama, qwen."
+                "Provider LLM tidak valid. Pilihan yang valid adalah: mock, gemini, groq, llama, qwen, ollama."
             )
 
     async def generate_answer(self, prompt: str) -> str:
@@ -55,6 +58,8 @@ class LLMService:
             return await self.generate_groq_answer(prompt)
         if self.provider == "qwen":
             return await self.generate_qwen_answer(prompt)
+        if self.provider == "ollama":
+            return await self.generate_ollama_answer(prompt)
 
         raise RuntimeError("Provider LLM tidak didukung.")
 
@@ -157,6 +162,53 @@ class LLMService:
         except Exception as error:
             raise HTTPException(status_code=503, detail=f"Qwen API error: {error}")
 
+    async def generate_ollama_answer(self, prompt: str) -> str:
+        try:
+            payload = {
+                "model": self.model,
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": (
+                            "Anda adalah chatbot IT Support. "
+                            "Jawab hanya berdasarkan konteks yang diberikan. "
+                            "Gunakan bahasa Indonesia dan format Markdown yang rapi."
+                        ),
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                "stream": False,
+                "options": {
+                    "temperature": 0.2,
+                    "num_predict": 1024,
+                },
+            }
+
+            response = await asyncio.wait_for(
+                asyncio.to_thread(
+                    requests.post,
+                    self.api_url,
+                    json=payload,
+                    timeout=60,
+                ),
+                timeout=60,
+            )
+
+            response.raise_for_status()
+            data = response.json()
+
+            answer = data.get("message", {}).get("content", "")
+            if not answer:
+                raise HTTPException(status_code=503, detail="Respons kosong dari Ollama API.")
+
+            return answer.strip()
+        except asyncio.TimeoutError:
+            raise HTTPException(status_code=503, detail="Ollama API tidak merespons dalam 60 detik.")
+        except HTTPException:
+            raise
+        except Exception as error:
+            raise HTTPException(status_code=503, detail=f"Ollama API error: {error}")
+
     def extract_context_from_prompt(self, prompt: str) -> str:
         try:
             context = prompt.split("=== KONTEKS KNOWLEDGE BASE ===")[1]
@@ -188,4 +240,3 @@ class LLMService:
             f"{cleaned_context}\n\n"
             "_Catatan: Mode ini tidak menggunakan API LLM, sehingga tidak mengurangi kuota model._"
         )
-

@@ -44,7 +44,7 @@ def home(request: Request):
             "request": request,
             "app_name": settings.APP_NAME,
             "default_provider": settings.LLM_PROVIDER,
-            "providers": ["mock", "gemini", "groq", "llama", "qwen"],
+            "providers": ["mock", "gemini", "groq", "llama", "qwen", "ollama"],
         },
     )
 
@@ -67,7 +67,9 @@ def health_check():
         provider=settings.LLM_PROVIDER,
         model=settings.GEMINI_MODEL if settings.LLM_PROVIDER == "gemini" else (
             settings.GROQ_MODEL if settings.LLM_PROVIDER in {"groq", "llama"} else (
-                settings.HF_MODEL if settings.LLM_PROVIDER == "qwen" else "mock"
+                settings.HF_MODEL if settings.LLM_PROVIDER == "qwen" else (
+                    settings.OLLAMA_MODEL if settings.LLM_PROVIDER == "ollama" else "mock"
+                )
             )
         ),
     )

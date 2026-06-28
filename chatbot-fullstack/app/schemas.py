@@ -7,7 +7,7 @@ from app.config import settings
 
 class ChatRequest(BaseModel):
     query: str = Field(..., min_length=1, max_length=1000, description="Pertanyaan pengguna")
-    model: str = Field(default=settings.LLM_PROVIDER, description="mock, gemini, groq/llama, qwen")
+    model: str = Field(default=settings.LLM_PROVIDER, description="mock, gemini, groq/llama, qwen, ollama")
 
 
 class ChatResponse(BaseModel):
@@ -23,4 +23,3 @@ class HealthResponse(BaseModel):
     indexed_chunks: int
     provider: str
     model: str
-

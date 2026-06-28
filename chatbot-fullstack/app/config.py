@@ -26,6 +26,9 @@ class Settings:
     HF_API_KEY = os.getenv("HF_API_KEY")
     HF_MODEL = os.getenv("HF_MODEL", "Qwen/Qwen3-8B:nscale")
 
+    OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://38.47.180.2:11434/api")
+    OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.1:8b")
+
     KNOWLEDGE_BASE_PATH = os.getenv(
         "KNOWLEDGE_BASE_PATH",
         str(BASE_DIR / "knowledge_base"),
@@ -57,9 +60,9 @@ def validate_settings() -> None:
     }
 
     provider = settings.LLM_PROVIDER
-    if provider not in {"mock", "gemini", "groq", "llama", "qwen"}:
+    if provider not in {"mock", "gemini", "groq", "llama", "qwen", "ollama"}:
         raise RuntimeError(
-            f"LLM_PROVIDER tidak valid: {provider}. Pilihan: mock, gemini, groq, llama, qwen."
+            f"LLM_PROVIDER tidak valid: {provider}. Pilihan: mock, gemini, groq, llama, qwen, ollama."
         )
 
     if settings.USE_MOCK_LLM or provider == "mock":

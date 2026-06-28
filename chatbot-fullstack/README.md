@@ -12,7 +12,7 @@ Versi ini dibuat sebagai aplikasi Python tunggal untuk chatbot IT Support berbas
 ## Kebutuhan
 
 - Python 3.11 atau lebih baru
-- Internet, jika ingin memakai provider Gemini, Groq, atau Hugging Face Router
+- Internet, jika ingin memakai provider Gemini, Groq, Hugging Face Router, atau Ollama remote
 
 ## Instalasi
 
@@ -57,6 +57,8 @@ LLM_PROVIDER=mock
 GEMINI_API_KEY=isi_api_key_gemini
 GROQ_API_KEY=isi_api_key_groq
 HF_API_KEY=isi_api_key_huggingface
+OLLAMA_BASE_URL=http://38.47.180.2:11434/api
+OLLAMA_MODEL=llama3.1:8b
 ```
 
 ## Cara Menjalankan
@@ -80,6 +82,7 @@ http://127.0.0.1:8000
 - `groq`
 - `llama`
 - `qwen`
+- `ollama`
 
 Kalau ingin aplikasi tetap bisa dipakai tanpa credential API, gunakan:
 
@@ -89,6 +92,15 @@ LLM_PROVIDER=mock
 ```
 
 Kalau ingin pakai model asli, ubah `USE_MOCK_LLM=false` dan isi key yang sesuai.
+
+Kalau ingin pakai server Ollama milik sendiri, set:
+
+```env
+USE_MOCK_LLM=false
+LLM_PROVIDER=ollama
+OLLAMA_BASE_URL=http://38.47.180.2:11434/api
+OLLAMA_MODEL=llama3.1:8b
+```
 
 ## Catatan
 

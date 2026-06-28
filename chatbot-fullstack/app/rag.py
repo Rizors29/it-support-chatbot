@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from app.category_detector import detect_category
-from app.config import settings
+from app.config import DEFAULT_MODELS, settings
 from app.llm import LLMService
 from app.vector_store import VectorStore
 
@@ -90,7 +90,8 @@ Tugas Anda:
 === JAWABAN ===
 """.strip()
 
-    async def process_query(self, query: str, model: str = "mock") -> dict:
+    async def process_query(self, query: str, provider: str = "mock", model: str = "") -> dict:
+        provider = (provider or "mock").lower()
         if not is_it_support_query(query):
             return {
                 "answer": (
@@ -101,7 +102,10 @@ Tugas Anda:
                 "sources": [],
                 "category": "Out of Scope",
                 "similarity_score": 0.0,
+                "similarity_metric": "cosine similarity",
                 "is_fallback": True,
+                "provider": provider,
+                "model": model or provider,
             }
 
         results = self.vector_store.search(query, settings.TOP_K)
@@ -112,7 +116,10 @@ Tugas Anda:
                 "sources": [],
                 "category": "Umum",
                 "similarity_score": 0.0,
+                "similarity_metric": "cosine similarity",
                 "is_fallback": True,
+                "provider": provider,
+                "model": model or provider,
             }
 
         top_score = results[0]["similarity_score"]
@@ -122,7 +129,10 @@ Tugas Anda:
                 "sources": [],
                 "category": "Umum",
                 "similarity_score": top_score,
+                "similarity_metric": "cosine similarity",
                 "is_fallback": True,
+                "provider": provider,
+                "model": model or provider,
             }
 
         filtered_results = [
@@ -133,7 +143,8 @@ Tugas Anda:
         context = self.build_context(filtered_results)
         prompt = self.build_prompt(query, context)
 
-        llm_service = LLMService(model)
+        selected_model = model or DEFAULT_MODELS.get(provider, provider)
+        llm_service = LLMService(provider, selected_model)
         answer = await llm_service.generate_answer(prompt)
 
         sources = list(dict.fromkeys(item["source_file"] for item in filtered_results))
@@ -144,6 +155,8 @@ Tugas Anda:
             "sources": sources,
             "category": category,
             "similarity_score": top_score,
+            "similarity_metric": "cosine similarity",
             "is_fallback": False,
+            "provider": provider,
+            "model": selected_model,
         }
-

@@ -35,45 +35,46 @@
       </div>
     </section>
 
-    <section class="grid">
-      <aside class="panel intro-panel">
+    <nav class="topnav" aria-label="Main navigation">
+      <button class="nav-tab active" type="button" data-tab="chat">CHAT</button>
+      <button class="nav-tab" type="button" data-tab="config">CONFIG</button>
+    </nav>
+
+    <section class="workspace">
+      <section class="panel tab-panel active" data-panel="chat">
         <div class="panel-header">
-          <div>
-            <p class="panel-title">Mode kerja</p>
-            <p class="panel-subtitle">Single app Python dengan RAG lokal.</p>
-          </div>
-        </div>
-        <ul class="feature-list">
-          <li>UI dan API ada di server Python yang sama.</li>
-          <li>Credential dibaca dari file `.env`.</li>
-          <li>Index knowledge base dibangun otomatis saat diperlukan.</li>
-        </ul>
-
-        <div class="quick-actions">
-          <button class="chip" data-suggest="Cara reset password email?">Reset password email</button>
-          <button class="chip" data-suggest="Printer tidak terdeteksi di laptop Windows">Printer tidak terdeteksi</button>
-          <button class="chip" data-suggest="VPN sering putus saat bekerja dari rumah">VPN sering putus</button>
-        </div>
-
-        <label class="field-label" for="provider">Model provider</label>
-        <select id="provider" class="select">
-          {% for provider in providers %}
-          <option value="{{ provider }}" {% if provider == default_provider %}selected{% endif %}>{{ provider }}</option>
-          {% endfor %}
-        </select>
-
-        <p class="helper-text">
-          Jika ingin tanpa API key, tetap bisa jalankan dengan provider <code>mock</code>.
-        </p>
-      </aside>
-
-      <section class="panel chat-panel">
-        <div class="chat-header">
           <div>
             <p class="panel-title">Chat</p>
             <p class="panel-subtitle">Ketik masalah IT Anda, lalu kirim.</p>
           </div>
           <button id="clearChat" class="ghost-button" type="button">Clear</button>
+        </div>
+
+        <div class="chat-controls">
+          <div>
+            <label class="field-label" for="provider">Provider</label>
+            <select id="provider" class="select">
+              {% for provider in providers %}
+              <option value="{{ provider }}" {% if provider == default_provider %}selected{% endif %}>{{ provider }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div>
+            <label class="field-label" for="model">Model</label>
+            <select id="model" class="select"></select>
+            <p id="modelStatus" class="helper-text compact">Pilih provider untuk memuat daftar model.</p>
+          </div>
+        </div>
+
+        <p class="helper-text compact">
+          Pilih provider dulu, model akan terisi otomatis. Kamu tetap bisa ubah modelnya kalau perlu.
+        </p>
+
+        <div class="quick-actions">
+          <button class="chip" data-suggest="Cara reset password email?">Reset password email</button>
+          <button class="chip" data-suggest="Printer tidak terdeteksi di laptop Windows">Printer tidak terdeteksi</button>
+          <button class="chip" data-suggest="VPN sering putus saat bekerja dari rumah">VPN sering putus</button>
         </div>
 
         <div id="chatWindow" class="chat-window" aria-live="polite"></div>
@@ -91,48 +92,69 @@
           Jawaban diambil dari retrieval knowledge base. Jika data tidak ditemukan, aplikasi akan memberi fallback.
         </p>
       </section>
-    </section>
 
-    <section class="panel vault-panel">
-      <div class="vault-header">
-        <div>
-          <p class="panel-title">Knowledge Vault</p>
-          <p class="panel-subtitle">Upload dokumen baru ke knowledge base, lalu index akan dibangun ulang otomatis.</p>
-        </div>
-        <button id="refreshDocs" class="ghost-button" type="button">Refresh</button>
-      </div>
-
-      <form id="uploadForm" class="upload-grid">
-        <div class="field">
-          <label class="field-label" for="folderName">Folder knowledge base</label>
-          <input id="folderName" class="select" type="text" list="folderSuggestions" placeholder="Contoh: IT Helpdesk" />
-          <datalist id="folderSuggestions"></datalist>
+      <section class="panel tab-panel" data-panel="config">
+        <div class="panel-header">
+          <div>
+            <p class="panel-title">Config</p>
+            <p class="panel-subtitle">Knowledge base dan pengaturan aplikasi.</p>
+          </div>
+          <button id="refreshDocs" class="ghost-button" type="button">Refresh</button>
         </div>
 
-        <div class="field">
-          <label class="field-label" for="uploadFile">File dokumen</label>
-          <input id="uploadFile" class="file-input" type="file" accept=".pdf,.txt,.docx" />
+        <section class="config-card">
+          <div class="config-copy">
+            <p class="section-title">Knowledge base</p>
+            <p class="helper-text compact">
+              Upload dokumen baru ke knowledge base, lalu index akan dibangun ulang otomatis.
+            </p>
+          </div>
+
+          <form id="uploadForm" class="upload-grid">
+            <div class="field">
+              <label class="field-label" for="folderName">Folder knowledge base</label>
+              <input id="folderName" class="select" type="text" list="folderSuggestions" placeholder="Contoh: IT Helpdesk" />
+              <datalist id="folderSuggestions"></datalist>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="uploadFile">File dokumen</label>
+              <input id="uploadFile" class="file-input" type="file" accept=".pdf,.txt,.docx" />
+            </div>
+
+            <div class="upload-actions">
+              <button id="uploadButton" type="submit">Upload & Rebuild</button>
+              <span id="uploadStatus" class="helper-text">Pilih file PDF, TXT, atau DOCX.</span>
+            </div>
+          </form>
+        </section>
+
+        <div class="docs-grid">
+          <div class="config-card">
+            <p class="section-title">Folder tersedia</p>
+            <div id="folderList" class="pill-list"></div>
+          </div>
+          <div class="config-card">
+            <p class="section-title">Isi knowledge base</p>
+            <div id="docList" class="doc-list"></div>
+          </div>
         </div>
 
-        <div class="upload-actions">
-          <button id="uploadButton" type="submit">Upload & Rebuild</button>
-          <span id="uploadStatus" class="helper-text">Pilih file PDF, TXT, atau DOCX.</span>
-        </div>
-      </form>
-
-      <div class="docs-grid">
-        <div>
-          <p class="panel-title small">Folder tersedia</p>
-          <div id="folderList" class="pill-list"></div>
-        </div>
-        <div>
-          <p class="panel-title small">Isi knowledge base</p>
-          <div id="docList" class="doc-list"></div>
-        </div>
-      </div>
+        <section class="config-card">
+          <p class="section-title">Config lainnya</p>
+          <ul class="feature-list compact">
+            <li>Credential dibaca dari file <code>.env</code>.</li>
+            <li>Provider tersedia: mock, gemini, groq, llama, qwen, ollama.</li>
+            <li>Index knowledge base dibangun otomatis saat diperlukan.</li>
+          </ul>
+        </section>
+      </section>
     </section>
   </main>
 
+  <script>
+    window.APP_DEFAULT_MODELS = {{ default_models | tojson }};
+  </script>
   <script src="/static/app.js"></script>
 </body>
 </html>

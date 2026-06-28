@@ -3,12 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 
 import shutil
+import requests
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from app.config import settings, validate_settings
+from app.config import AVAILABLE_MODELS, DEFAULT_MODELS, settings, validate_settings
 from app.rag import RAGService
 from app.schemas import ChatRequest, ChatResponse, HealthResponse
 
@@ -25,6 +26,59 @@ app = FastAPI(
 
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 rag_service = RAGService()
+AVAILABLE_PROVIDERS = ["mock", "gemini", "groq", "llama", "qwen", "ollama"]
+
+
+def get_model_catalog(provider: str) -> dict:
+    provider = (provider or "").lower()
+
+    if provider not in AVAILABLE_PROVIDERS:
+        raise HTTPException(status_code=400, detail="Provider tidak valid.")
+
+    default_model = DEFAULT_MODELS.get(provider, provider)
+    fallback_models = AVAILABLE_MODELS.get(provider, [default_model])
+
+    if provider == "ollama":
+        tags_url = settings.OLLAMA_BASE_URL.rstrip("/") + "/tags"
+        try:
+            response = requests.get(tags_url, timeout=10)
+            response.raise_for_status()
+            payload = response.json()
+            models = [
+                item.get("name")
+                for item in payload.get("models", [])
+                if item.get("name")
+            ]
+
+            if not models:
+                models = fallback_models
+
+            return {
+                "provider": provider,
+                "api_checked": True,
+                "source": "ollama_server",
+                "message": "Daftar model berhasil dimuat dari server Ollama.",
+                "default_model": models[0] if models else default_model,
+                "models": models,
+            }
+        except Exception as error:
+            return {
+                "provider": provider,
+                "api_checked": False,
+                "source": "config_fallback",
+                "message": f"Server Ollama tidak bisa diakses, memakai fallback lokal: {error}",
+                "default_model": default_model,
+                "models": fallback_models,
+            }
+
+    return {
+        "provider": provider,
+        "api_checked": False,
+        "source": "config_fallback",
+        "message": "Daftar model diambil dari konfigurasi lokal.",
+        "default_model": default_model,
+        "models": fallback_models,
+    }
 
 if STATIC_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
@@ -44,7 +98,9 @@ def home(request: Request):
             "request": request,
             "app_name": settings.APP_NAME,
             "default_provider": settings.LLM_PROVIDER,
-            "providers": ["mock", "gemini", "groq", "llama", "qwen", "ollama"],
+            "providers": AVAILABLE_PROVIDERS,
+            "default_models": DEFAULT_MODELS,
+            "available_models": AVAILABLE_MODELS,
         },
     )
 
@@ -53,6 +109,7 @@ def home(request: Request):
 async def chat(request: ChatRequest):
     result = await rag_service.process_query(
         query=request.query.strip(),
+        provider=request.provider,
         model=request.model,
     )
     return ChatResponse(**result)
@@ -73,6 +130,11 @@ def health_check():
             )
         ),
     )
+
+
+@app.get("/api/models")
+def list_models(provider: str):
+    return get_model_catalog(provider)
 
 
 @app.get("/api/folders")

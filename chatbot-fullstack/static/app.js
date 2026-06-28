@@ -2,10 +2,14 @@ const chatWindow = document.getElementById("chatWindow");
 const chatForm = document.getElementById("chatForm");
 const queryInput = document.getElementById("query");
 const providerSelect = document.getElementById("provider");
+const modelInput = document.getElementById("model");
+const modelStatus = document.getElementById("modelStatus");
 const sendButton = document.getElementById("sendButton");
 const clearChat = document.getElementById("clearChat");
 const healthText = document.getElementById("healthText");
 const healthDot = document.getElementById("healthDot");
+const navTabs = Array.from(document.querySelectorAll("[data-tab]"));
+const tabPanels = Array.from(document.querySelectorAll("[data-panel]"));
 const uploadForm = document.getElementById("uploadForm");
 const uploadFile = document.getElementById("uploadFile");
 const folderName = document.getElementById("folderName");
@@ -15,6 +19,8 @@ const folderList = document.getElementById("folderList");
 const docList = document.getElementById("docList");
 const folderSuggestions = document.getElementById("folderSuggestions");
 const refreshDocs = document.getElementById("refreshDocs");
+
+const defaultModels = window.APP_DEFAULT_MODELS || {};
 
 function escapeHtml(text) {
   return text
@@ -79,6 +85,54 @@ async function checkHealth() {
   }
 }
 
+function setModelOptions(models, selectedModel) {
+  modelInput.innerHTML = "";
+
+  models.forEach((name) => {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    modelInput.appendChild(option);
+  });
+
+  const selected = selectedModel || models[0] || "mock";
+  modelInput.value = selected;
+}
+
+async function loadModels(provider) {
+  const fallbackModel = defaultModels[provider] || provider || "mock";
+  modelStatus.textContent = "Memuat daftar model...";
+  modelInput.disabled = true;
+
+  try {
+    const response = await fetch(`/api/models?provider=${encodeURIComponent(provider)}`);
+    const payload = await response.json();
+
+    if (!response.ok) {
+      throw new Error(payload.detail || "Gagal memuat model");
+    }
+
+    const models = payload.models && payload.models.length > 0 ? payload.models : [fallbackModel];
+    setModelOptions(models, payload.default_model || fallbackModel);
+    modelStatus.textContent = payload.message || "Model berhasil dimuat.";
+  } catch (error) {
+    setModelOptions([fallbackModel], fallbackModel);
+    modelStatus.textContent = `Pakai fallback lokal: ${error.message}`;
+  } finally {
+    modelInput.disabled = false;
+  }
+}
+
+function setActiveTab(tabName) {
+  navTabs.forEach((tab) => {
+    tab.classList.toggle("active", tab.dataset.tab === tabName);
+  });
+
+  tabPanels.forEach((panel) => {
+    panel.classList.toggle("active", panel.dataset.panel === tabName);
+  });
+}
+
 async function refreshKnowledgeBase() {
   try {
     const response = await fetch("/api/documents");
@@ -138,7 +192,8 @@ async function sendQuery(query) {
     },
     body: JSON.stringify({
       query,
-      model: providerSelect.value,
+      provider: providerSelect.value,
+      model: modelInput.value.trim(),
     }),
   });
 
@@ -171,7 +226,9 @@ chatForm.addEventListener("submit", async (event) => {
 
     const badges = [
       `Kategori: ${data.category}`,
-      `Skor: ${data.similarity_score.toFixed(2)}`,
+      `Similarity score (${data.similarity_metric}): ${data.similarity_score.toFixed(2)}`,
+      `Provider: ${data.provider}`,
+      `Model: ${data.model}`,
       data.is_fallback ? "Fallback aktif" : "RAG aktif",
     ];
 
@@ -241,6 +298,16 @@ document.querySelectorAll("[data-suggest]").forEach((button) => {
   });
 });
 
+providerSelect.addEventListener("change", () => {
+  loadModels(providerSelect.value);
+});
+
+navTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    setActiveTab(tab.dataset.tab);
+  });
+});
+
 clearChat.addEventListener("click", () => {
   chatWindow.innerHTML = "";
   appendMessage(
@@ -260,6 +327,7 @@ appendMessage(
   "bot",
   "Tanya masalah IT Anda di sini. Contoh: 'VPN sering putus saat WFH' atau 'Printer tidak terdeteksi di laptop Windows'."
 );
+loadModels(providerSelect.value);
+setActiveTab("chat");
 refreshKnowledgeBase();
 checkHealth();
-

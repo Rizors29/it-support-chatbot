@@ -7,7 +7,8 @@ from app.config import settings
 
 class ChatRequest(BaseModel):
     query: str = Field(..., min_length=1, max_length=1000, description="Pertanyaan pengguna")
-    model: str = Field(default=settings.LLM_PROVIDER, description="mock, gemini, groq/llama, qwen, ollama")
+    provider: str = Field(default=settings.LLM_PROVIDER, description="mock, gemini, groq, llama, qwen, ollama")
+    model: str = Field(default="", description="Nama model yang dipakai provider")
 
 
 class ChatResponse(BaseModel):
@@ -15,7 +16,10 @@ class ChatResponse(BaseModel):
     sources: list[str]
     category: str
     similarity_score: float
+    similarity_metric: str
     is_fallback: bool
+    provider: str
+    model: str
 
 
 class HealthResponse(BaseModel):

@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import pickle
 from pathlib import Path
+from typing import Optional
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -13,7 +14,7 @@ from app.document_loader import load_and_chunk_knowledge_base
 
 class VectorStore:
     def __init__(self) -> None:
-        self.vectorizer: TfidfVectorizer | None = None
+        self.vectorizer: Optional[TfidfVectorizer] = None
         self.matrix = None
         self.metadata: list[dict] = []
 
@@ -96,7 +97,7 @@ class VectorStore:
         chunks = load_and_chunk_knowledge_base(settings.KNOWLEDGE_BASE_PATH)
         self.build_index(chunks)
 
-    def search(self, query: str, top_k: int | None = None) -> list[dict]:
+    def search(self, query: str, top_k: Optional[int] = None) -> list[dict]:
         if self.vectorizer is None or self.matrix is None:
             self.get_or_build_index()
 

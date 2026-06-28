@@ -11,7 +11,7 @@ Versi ini dibuat sebagai aplikasi Python tunggal untuk chatbot IT Support berbas
 
 ## Kebutuhan
 
-- Python 3.11 atau lebih baru
+- Python 3.9 atau lebih baru
 - Internet, jika ingin memakai provider Gemini, Groq, Hugging Face Router, atau Ollama remote
 
 ## Instalasi
@@ -34,9 +34,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-4. Install dependency.
+4. Upgrade `pip` lalu install dependency.
 
 ```bash
+python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 ```
 

@@ -48,6 +48,32 @@ class Settings:
 settings = Settings()
 
 
+DEFAULT_MODELS = {
+    "mock": "mock",
+    "gemini": settings.GEMINI_MODEL,
+    "groq": settings.GROQ_MODEL,
+    "llama": settings.GROQ_MODEL,
+    "qwen": settings.HF_MODEL,
+    "ollama": settings.OLLAMA_MODEL,
+}
+
+
+AVAILABLE_MODELS = {
+    "mock": ["mock"],
+    "gemini": [settings.GEMINI_MODEL],
+    "groq": [settings.GROQ_MODEL],
+    "llama": [settings.GROQ_MODEL],
+    "qwen": [settings.HF_MODEL],
+    "ollama": [
+        settings.OLLAMA_MODEL,
+        "llama3.1:8b",
+        "llama3.1:70b",
+        "mistral",
+        "qwen2.5:7b",
+    ],
+}
+
+
 def validate_settings() -> None:
     placeholders = {
         "",
@@ -76,4 +102,3 @@ def validate_settings() -> None:
 
     if provider == "qwen" and (not settings.HF_API_KEY or settings.HF_API_KEY in placeholders):
         raise RuntimeError("HF_API_KEY belum diisi dengan benar di file .env")
-

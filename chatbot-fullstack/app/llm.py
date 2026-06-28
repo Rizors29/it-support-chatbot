@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import re
+from typing import Optional
 
 import google.generativeai as genai
 import requests
@@ -12,8 +13,9 @@ from app.config import settings
 
 
 class LLMService:
-    def __init__(self, provider: str):
+    def __init__(self, provider: str, model_name: Optional[str] = None):
         self.provider = provider.lower()
+        self.model_name = model_name
 
         if self.provider == "llama":
             self.provider = "groq"
@@ -22,8 +24,9 @@ class LLMService:
             if not settings.GEMINI_API_KEY:
                 raise RuntimeError("GEMINI_API_KEY belum diisi di file .env")
             genai.configure(api_key=settings.GEMINI_API_KEY)
+            chosen_model = self.model_name or settings.GEMINI_MODEL
             self.model = genai.GenerativeModel(
-                model_name=settings.GEMINI_MODEL,
+                model_name=chosen_model,
                 generation_config=genai.types.GenerationConfig(
                     temperature=0.2,
                     max_output_tokens=1024,
@@ -33,15 +36,15 @@ class LLMService:
             if not settings.GROQ_API_KEY:
                 raise RuntimeError("GROQ_API_KEY belum diisi di file .env")
             self.client = Groq(api_key=settings.GROQ_API_KEY)
-            self.model = settings.GROQ_MODEL
+            self.model = self.model_name or settings.GROQ_MODEL
         elif self.provider == "qwen":
             if not settings.HF_API_KEY:
                 raise RuntimeError("HF_API_KEY belum diisi di file .env")
             self.api_url = "https://router.huggingface.co/v1/chat/completions"
-            self.model = settings.HF_MODEL
+            self.model = self.model_name or settings.HF_MODEL
         elif self.provider == "ollama":
             self.api_url = settings.OLLAMA_BASE_URL.rstrip("/") + "/chat"
-            self.model = settings.OLLAMA_MODEL
+            self.model = self.model_name or settings.OLLAMA_MODEL
         elif self.provider == "mock":
             self.model = "mock"
         else:

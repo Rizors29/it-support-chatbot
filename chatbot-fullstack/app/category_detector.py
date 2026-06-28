@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from typing import Optional
 
-def detect_category(query: str, sources: list[str] | None = None) -> str:
+
+def detect_category(query: str, sources: Optional[list[str]] = None) -> str:
     text = query.lower()
 
     if sources:
@@ -23,4 +25,3 @@ def detect_category(query: str, sources: list[str] | None = None) -> str:
         return "Network"
 
     return "General"
-
